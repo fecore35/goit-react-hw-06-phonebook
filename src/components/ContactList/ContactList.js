@@ -32,8 +32,15 @@ function ContactList({ contacts, onDelete }) {
   );
 }
 
+const getVisibleContacts = (contacts, filter) => {
+  const search = filter.toUpperCase();
+  return contacts.filter((contact) =>
+    contact.name.toUpperCase().includes(search)
+  );
+};
+
 const mapStateToProps = (state) => ({
-  contacts: state.contacts.items,
+  contacts: getVisibleContacts(state.contacts.items, state.contacts.filter),
 });
 
 const mapDispatchToProps = (dispatch) => ({

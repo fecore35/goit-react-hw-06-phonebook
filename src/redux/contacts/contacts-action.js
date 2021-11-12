@@ -9,3 +9,8 @@ export const deleteContact = (id) => ({
   type: types.DELETE,
   payload: { id },
 });
+
+export const changeFilter = (text) => ({
+  type: types.FILTER,
+  payload: { text },
+});

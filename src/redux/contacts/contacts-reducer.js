@@ -33,7 +33,17 @@ const itemsReducer = (state = initialItems, action) => {
   }
 };
 
+const filterReducer = (state = "", action) => {
+  switch (action.type) {
+    case types.FILTER:
+      return action.payload.text;
+
+    default:
+      return state;
+  }
+};
+
 export const contactsReducer = combineReducers({
   items: itemsReducer,
-  filter: "",
+  filter: filterReducer,
 });

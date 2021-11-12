@@ -2,4 +2,5 @@
 export default {
   CREATE: "contacts/Create",
   DELETE: "contacts/Delete",
+  FILTER: "contacts/Filter",
 };
