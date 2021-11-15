@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import PropTypes from "prop-types";
 import s from "./ContactForm.module.css";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createContact } from "redux/contacts/contacts-action";
 
-function ContactForm({ contacts, onSave }) {
+function ContactForm() {
+  const contacts = useSelector((state) => state.contacts.items);
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
@@ -39,12 +40,11 @@ function ContactForm({ contacts, onSave }) {
     }
 
     const newContact = { id: uuidv4(), name, number };
-
     setName("");
     setNumber("");
 
     // ? GlobalState - add new Contact
-    onSave(newContact);
+    dispatch(createContact(newContact));
   };
 
   return (
@@ -84,16 +84,4 @@ function ContactForm({ contacts, onSave }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  contacts: state.contacts.items,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSave: (contact) => dispatch(createContact(contact)),
-});
-
-ContactForm.propTypes = {
-  onSave: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+export default ContactForm;

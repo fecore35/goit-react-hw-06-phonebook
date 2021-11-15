@@ -1,9 +1,11 @@
-import PropTypes from "prop-types";
 import s from "./Filter.module.css";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeFilter } from "../../redux/contacts/contacts-action";
 
-function Filter({ filter, handlerChange }) {
+function Filter({ handlerChange }) {
+  const filter = useSelector((state) => state.contacts.filter);
+  const dispatch = useDispatch();
+
   return (
     <section className={s.container}>
       <label>
@@ -15,24 +17,11 @@ function Filter({ filter, handlerChange }) {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           value={filter}
-          onChange={handlerChange}
+          onChange={(e) => dispatch(changeFilter(e.target.value))}
         />
       </label>
     </section>
   );
 }
 
-const mapStateToProps = (state) => ({
-  filter: state.contacts.filter,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  handlerChange: (e) => dispatch(changeFilter(e.target.value)),
-});
-
-Filter.propTypes = {
-  filter: PropTypes.string,
-  handlerChange: PropTypes.func,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default Filter;
