@@ -3,9 +3,10 @@ import { v4 as uuidv4 } from "uuid";
 import s from "./ContactForm.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { createContact } from "redux/contacts/contacts-action";
+import { getContacts } from "../../redux/contacts/contacts-selectors";
 
 function ContactForm() {
-  const contacts = useSelector((state) => state.contacts.items);
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");

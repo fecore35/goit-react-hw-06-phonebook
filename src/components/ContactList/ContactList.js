@@ -2,18 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import s from "./ContactList.module.css";
 import { deleteContact } from "../../redux/contacts/contacts-action";
-
-const getVisibleContacts = (contacts, filter) => {
-  const search = filter.toUpperCase();
-  return contacts.filter((contact) =>
-    contact.name.toUpperCase().includes(search)
-  );
-};
+import { getVisibleContacts } from "../../redux/contacts/contacts-selectors";
 
 function ContactList() {
-  const contacts = useSelector((state) => state.contacts.items);
-  const filter = useSelector((state) => state.contacts.filter);
-  const visibleContacts = getVisibleContacts(contacts, filter);
+  const visibleContacts = useSelector(getVisibleContacts);
   const dispatch = useDispatch();
 
   return (
